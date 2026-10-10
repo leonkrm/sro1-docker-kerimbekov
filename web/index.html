@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Отчёт</title>
+<style>
+  body { font-family: Arial, sans-serif; margin: 24px; background: #f4f6f8; color: #222; }
+  .tiles { display: flex; gap: 12px; flex-wrap: wrap; }
+  .tile { background: #fff; border-radius: 8px; padding: 12px 16px; min-width: 160px; }
+  .tile b { display: block; font-size: 22px; }
+  table { border-collapse: collapse; background: #fff; margin: 8px 0 20px; }
+  th, td { border: 1px solid #ccc; padding: 6px 10px; text-align: left; }
+  th { background: #e8edf2; }
+  .meta { color: #666; }
+  .code { font-family: monospace; font-size: 20px; color: #b00020; }
+</style>
+</head>
+<body>
+<h1 id="title">Загрузка...</h1>
+<p class="meta" id="meta"></p>
+<p>Контрольный код: <span class="code" id="code">-</span></p>
+<div class="tiles" id="tiles"></div>
+<div id="tables"></div>
+<script>
+fetch("/api/report")
+  .then(r => r.json())
+  .then(rep => {
+    document.getElementById("title").textContent = rep.org + " - " + rep.title;
+    document.getElementById("meta").textContent =
+      "Филиал: " + rep.branch + " | Записей: " + rep.records +
+      " | TOP: " + rep.top + " | Контейнер API: " + rep.container;
+    document.getElementById("code").textContent = rep.control_code;
+    let tiles = "";
+    for (const s of rep.summary) {
+      tiles += "<div class='tile'>" + s.label + "<b>" + s.value + "</b></div>";
+    }
+    document.getElementById("tiles").innerHTML = tiles;
+    let html = "";
+    for (const t of rep.tables) {
+      html += "<h2>" + t.title + "</h2><table><tr>";
+      for (const c of t.columns) html += "<th>" + c + "</th>";
+      html += "</tr>";
+      for (const row of t.rows) {
+        html += "<tr>";
+        for (const v of row) html += "<td>" + v + "</td>";
+        html += "</tr>";
+      }
+      html += "</table>";
+    }
+    document.getElementById("tables").innerHTML = html;
+  })
+  .catch(e => {
+    document.getElementById("title").textContent = "Не удалось подключиться к API";
+    document.getElementById("meta").textContent = String(e);
+  });
+</script>
+</body>
+</html>
