@@ -1,0 +1,9 @@
+FROM python:3.12-alpine
+WORKDIR /medeu-ice
+COPY . .
+ENV REPORT_FILE="out/report.json"
+ENV BRANCH="Medeu"
+ENV TOP="5"
+RUN python tools/build_report.py
+EXPOSE 8080
+CMD ["python", "app/server.py"]
