@@ -1,0 +1,81 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 579B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-alpine
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [build 1/5] FROM docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+#4 resolve docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 2.40kB done
+#5 DONE 0.0s
+
+#6 [build 2/5] WORKDIR /src
+#6 CACHED
+
+#7 [build 3/5] COPY tools/ tools/
+#7 CACHED
+
+#8 [build 4/5] COPY data/ data/
+#8 DONE 0.1s
+
+#9 [build 5/5] RUN python tools/build_report.py
+#9 0.432 out/report.json готов: 36 записей, контрольный код 49F64360
+#9 DONE 0.5s
+
+#10 [test 1/2] COPY tests/ tests/
+#10 DONE 0.1s
+
+#11 [test 2/2] RUN python -m unittest discover -s tests -v
+#11 0.551 test_columns (test_data.DataRulesTest.test_columns) ... ok
+#11 0.551 test_own_records_added (test_data.DataRulesTest.test_own_records_added) ... ok
+#11 0.551 test_price_matches_ticket (test_data.DataRulesTest.test_price_matches_ticket) ... ok
+#11 0.551 test_qty_positive (test_data.DataRulesTest.test_qty_positive) ... ok
+#11 0.552 test_report_created (test_data.DataRulesTest.test_report_created) ... ok
+#11 0.552 test_session_not_overbooked (test_data.DataRulesTest.test_session_not_overbooked) ... 
+#11 0.552   test_session_not_overbooked (test_data.DataRulesTest.test_session_not_overbooked) (session='2026-12-20 18:00') ... FAIL
+#11 0.553 
+#11 0.553 ======================================================================
+#11 0.553 FAIL: test_session_not_overbooked (test_data.DataRulesTest.test_session_not_overbooked) (session='2026-12-20 18:00')
+#11 0.553 ----------------------------------------------------------------------
+#11 0.553 Traceback (most recent call last):
+#11 0.553   File "/src/tests/test_data.py", line 45, in test_session_not_overbooked
+#11 0.553     self.assertLessEqual(qty, CAPACITY)
+#11 0.553 AssertionError: 134 not less than or equal to 120
+#11 0.553 
+#11 0.553 ----------------------------------------------------------------------
+#11 0.553 Ran 6 tests in 0.002s
+#11 0.553 
+#11 0.553 FAILED (failures=1)
+#11 ERROR: process "/bin/sh -c python -m unittest discover -s tests -v" did not complete successfully: exit code: 1
+------
+ > [test 2/2] RUN python -m unittest discover -s tests -v:
+0.553 ----------------------------------------------------------------------
+0.553 Traceback (most recent call last):
+0.553   File "/src/tests/test_data.py", line 45, in test_session_not_overbooked
+0.553     self.assertLessEqual(qty, CAPACITY)
+0.553 AssertionError: 134 not less than or equal to 120
+0.553 
+0.553 ----------------------------------------------------------------------
+0.553 Ran 6 tests in 0.002s
+0.553 
+0.553 FAILED (failures=1)
+------
+Dockerfile:11
+--------------------
+   9 |     FROM build AS test
+  10 |     COPY tests/ tests/
+  11 | >>> RUN python -m unittest discover -s tests -v
+  12 |     
+  13 |     # --- Стадия 3: финальная ---
+--------------------
+ERROR: failed to build: failed to solve: process "/bin/sh -c python -m unittest discover -s tests -v" did not complete successfully: exit code: 1

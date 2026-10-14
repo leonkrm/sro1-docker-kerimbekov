@@ -1,0 +1,69 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 579B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-alpine
+#2 DONE 0.0s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [build 1/5] FROM docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+#4 resolve docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 0.0s done
+#4 CACHED
+
+#5 [stage-2 2/4] WORKDIR /medeu-ice
+#5 CACHED
+
+#6 [internal] load build context
+#6 transferring context: 719B done
+#6 DONE 0.0s
+
+#7 [build 2/5] WORKDIR /src
+#7 DONE 0.1s
+
+#8 [stage-2 3/4] COPY app/server.py .
+#8 DONE 0.0s
+
+#9 [build 3/5] COPY tools/ tools/
+#9 DONE 0.0s
+
+#10 [build 4/5] COPY data/ data/
+#10 DONE 0.0s
+
+#11 [build 5/5] RUN python tools/build_report.py
+#11 0.484 out/report.json готов: 35 записей, контрольный код 43A3D59D
+#11 DONE 0.5s
+
+#12 [test 1/2] COPY tests/ tests/
+#12 DONE 0.1s
+
+#13 [test 2/2] RUN python -m unittest discover -s tests -v
+#13 0.585 test_columns (test_data.DataRulesTest.test_columns) ... ok
+#13 0.585 test_own_records_added (test_data.DataRulesTest.test_own_records_added) ... ok
+#13 0.585 test_price_matches_ticket (test_data.DataRulesTest.test_price_matches_ticket) ... ok
+#13 0.586 test_qty_positive (test_data.DataRulesTest.test_qty_positive) ... ok
+#13 0.586 test_report_created (test_data.DataRulesTest.test_report_created) ... ok
+#13 0.586 test_session_not_overbooked (test_data.DataRulesTest.test_session_not_overbooked) ... ok
+#13 0.587 
+#13 0.587 ----------------------------------------------------------------------
+#13 0.587 Ran 6 tests in 0.001s
+#13 0.587 
+#13 0.587 OK
+#13 DONE 0.6s
+
+#14 [stage-2 4/4] COPY --from=test /src/out/report.json .
+#14 DONE 0.0s
+
+#15 exporting to image
+#15 exporting layers 0.1s done
+#15 exporting manifest sha256:bc76d8eb732503e4944a15e3172ed72130bcf0115307958f226eb8cb24a7aae6 done
+#15 exporting config sha256:523c2845586e3e38d569e4d8b79d43bf470b266880e9e10d874a46d3be648091 0.0s done
+#15 exporting attestation manifest sha256:4f048158b086fc751091ecef656091ae73140017c5374c97f1e220c6e73dbcae 0.0s done
+#15 exporting manifest list sha256:5a21d71fc20fb5eb60ff3f9855fcadc803fcb9aeb9d7ef5d7d514a7fee112949 done
+#15 naming to docker.io/library/medeu-ice:v2 done
+#15 unpacking to docker.io/library/medeu-ice:v2 0.0s done
+#15 DONE 0.2s
