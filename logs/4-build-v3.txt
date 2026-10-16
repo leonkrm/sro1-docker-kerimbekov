@@ -1,0 +1,57 @@
+#0 building with "default" instance using docker driver
+
+#1 [internal] load build definition from Dockerfile
+#1 transferring dockerfile: 579B done
+#1 DONE 0.0s
+
+#2 [internal] load metadata for docker.io/library/python:3.12-alpine
+#2 DONE 2.3s
+
+#3 [internal] load .dockerignore
+#3 transferring context: 2B done
+#3 DONE 0.0s
+
+#4 [build 1/5] FROM docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4
+#4 resolve docker.io/library/python:3.12-alpine@sha256:1b668429b3511ab407d8e00648891631b0b1a4d7e15e3ca70f38ab5b91ad4ab4 0.0s done
+#4 DONE 0.0s
+
+#5 [internal] load build context
+#5 transferring context: 3.93kB done
+#5 DONE 0.0s
+
+#6 [build 4/5] COPY data/ data/
+#6 CACHED
+
+#7 [build 2/5] WORKDIR /src
+#7 CACHED
+
+#8 [build 3/5] COPY tools/ tools/
+#8 CACHED
+
+#9 [build 5/5] RUN python tools/build_report.py
+#9 CACHED
+
+#10 [test 1/2] COPY tests/ tests/
+#10 CACHED
+
+#11 [test 2/2] RUN python -m unittest discover -s tests -v
+#11 CACHED
+
+#12 [stage-2 2/4] WORKDIR /medeu-ice
+#12 CACHED
+
+#13 [stage-2 3/4] COPY app/server.py .
+#13 DONE 0.1s
+
+#14 [stage-2 4/4] COPY --from=test /src/out/report.json .
+#14 DONE 0.1s
+
+#15 exporting to image
+#15 exporting layers 0.1s done
+#15 exporting manifest sha256:9fb3dd2ca8095c52f9670dced65e75fc6f11f70914789a91e7bc8a9d82edbe0e done
+#15 exporting config sha256:d901c65d5592162a167b9a0aad83cbe3e4db0a0e5da3dc38b37d444defef2392 0.0s done
+#15 exporting attestation manifest sha256:396d540e182ae7f11585b97514846a1f74c8b12b3297bd825cd94735df407d61 0.0s done
+#15 exporting manifest list sha256:99e6b4b03c25d433b733e537cba9b3c40aa38e6460a6c13a5d764bbcce72d460 0.0s done
+#15 naming to docker.io/library/medeu-ice:v3 done
+#15 unpacking to docker.io/library/medeu-ice:v3 0.0s done
+#15 DONE 0.2s

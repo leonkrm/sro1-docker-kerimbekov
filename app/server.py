@@ -30,7 +30,7 @@ class Handler(BaseHTTPRequestHandler):
  
     def do_GET(self):
         if self.path == "/api/health":
-            self.send_json(200, {"status": "ok", "container": socket.gethostname()})
+            self.send_json(200, {"status": "ok", "version": "v3", "container": socket.gethostname()})
         elif self.path == "/api/report":
             try:
                 self.send_json(200, load_report())
