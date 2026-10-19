@@ -1,0 +1,61 @@
+CONTAINER ID   IMAGE              COMMAND                  CREATED         STATUS          PORTS                                         NAMES
+bc729eef584d   medeu-ice-web:v1   "/docker-entrypoint.…"   2 minutes ago   Up 2 minutes    0.0.0.0:8602->80/tcp, [::]:8602->80/tcp       medeu-web
+57990e8cd23f   medeu-ice:v3       "python server.py"       2 minutes ago   Up 2 minutes    0.0.0.0:8502->8080/tcp, [::]:8502->8080/tcp   medeu-api
+7de3831e8f40   registry:2         "/entrypoint.sh /etc…"   3 days ago      Up 10 minutes   0.0.0.0:5000->5000/tcp, [::]:5000->5000/tcp   air-registry
+546a006da00b   nginx:latest       "/docker-entrypoint.…"   4 days ago      Up 10 minutes   0.0.0.0:8080->80/tcp, [::]:8080->80/tcp       srs1_nginx_web
+[
+    {
+        "Name": "medeu-net",
+        "Id": "f9ba9295401b1a15e155d18db39d9a8693db8fdf107cc3544d3cbc21bcfdfa59",
+        "Created": "2026-10-19T14:15:18.239323897+05:00",
+        "Scope": "local",
+        "Driver": "bridge",
+        "EnableIPv4": true,
+        "EnableIPv6": false,
+        "IPAM": {
+            "Driver": "default",
+            "Options": {},
+            "Config": [
+                {
+                    "Subnet": "172.19.0.0/16",
+                    "Gateway": "172.19.0.1"
+                }
+            ]
+        },
+        "Internal": false,
+        "Attachable": false,
+        "Ingress": false,
+        "ConfigFrom": {
+            "Network": ""
+        },
+        "ConfigOnly": false,
+        "Options": {},
+        "Labels": {},
+        "Containers": {
+            "57990e8cd23f4d225b0335b105e2abfd254cbcc98666e9ec1f97e767a4a39252": {
+                "Name": "medeu-api",
+                "EndpointID": "1d5daa941b96ceea202a86a1370ec4cde47406cd7f928d7032fbb97258982049",
+                "MacAddress": "3a:68:ce:b1:00:3e",
+                "IPv4Address": "172.19.0.2/16",
+                "IPv6Address": ""
+            },
+            "bc729eef584df909823b7e5da5488a51265046764f4c203e13ef6ac41ef13bac": {
+                "Name": "medeu-web",
+                "EndpointID": "ac2347c94e840e409b9cf2ed14df21ba0925096278871de3c2091cb7f05799c7",
+                "MacAddress": "86:9e:dc:4b:3e:85",
+                "IPv4Address": "172.19.0.3/16",
+                "IPv6Address": ""
+            }
+        },
+        "Status": {
+            "IPAM": {
+                "Subnets": {
+                    "172.19.0.0/16": {
+                        "IPsInUse": 5,
+                        "DynamicIPsAvailable": 65531
+                    }
+                }
+            }
+        }
+    }
+]
